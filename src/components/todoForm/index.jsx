@@ -1,28 +1,17 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { addTodo } from '../../redux/slices/todoSlice'
 import { useDispatch } from 'react-redux'
 
 function TodoForm() {
   const dispatch = useDispatch()
-  const [todoData, setTodoData] = useState({
-    id: '',
-    title: '',
-    completed: false,
-  })
+  const [text, setText] = useState('')
 
-  function handleChange(event) {
-    const { name, value } = event.target
-    setTodoData({ ...todoData, [name]: value })
-  }
-
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault()
-    dispatch(addTodo(todoData))
-    setTodoData({
-      id: '',
-      title: '',
-      completed: false,
-    })
+    dispatch(
+      addTodo({ id: Date.now().toString(), title: text, completed: false })
+    )
+    setText('')
   }
 
   return (
@@ -31,8 +20,8 @@ function TodoForm() {
         type="text"
         name="title"
         placeholder="Enter new todo"
-        value={todoData.title}
-        onChange={(event) => handleChange(event)}
+        value={text}
+        onChange={(event) => setText(event.target.value)}
       />
       <button type="submit">Add Todo</button>
     </form>

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const todoSlice = createSlice({
-  name: 'todo',
+  name: 'todos',
   initialState: {
     data: [],
   },
@@ -9,8 +9,17 @@ const todoSlice = createSlice({
     addTodo: (state, action) => {
       state.data.push({ id: Math.random(), ...action.payload })
     },
+    toggleTodo: (state, action) => {
+      const todo = state.data.find((todo) => todo.id === action.payload)
+      if (todo) {
+        todo.completed = !todo.completed
+      }
+    },
+    deleteTodo: (state, action) => {
+      state.data.state.filter((todo) => todo.id !== action.payload)
+    },
   },
 })
 
-export const { addTodo } = todoSlice.actions
+export const { addTodo, toggleTodo, deleteTodo } = todoSlice.actions
 export default todoSlice.reducer
