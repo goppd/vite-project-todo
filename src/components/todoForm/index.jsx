@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { addTodo } from '../../redux/slices/todoSlice'
 import { useDispatch } from 'react-redux'
+import { Input, Button } from 'antd'
 
 function TodoForm() {
   const dispatch = useDispatch()
@@ -9,22 +10,29 @@ function TodoForm() {
   const handleSubmit = (event) => {
     event.preventDefault()
     dispatch(
-      addTodo({ id: Date.now().toString(), title: text, completed: false })
+      addTodo({ id: Date.now().toString(), title: text, completed: false }),
     )
     setText('')
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="title"
+    <div style={{ width: '100%' }}>
+      <Input
         placeholder="Enter new todo"
         value={text}
-        onChange={(event) => setText(event.target.value)}
+        onChange={(e) => setText(e.target.value)}
+        size="large"
+        style={{ width: '100%', marginBottom: 12 }} // 🔥 НА ВСЮ ШИРИНУ
       />
-      <button type="submit">Add Todo</button>
-    </form>
+      <Button
+        type="primary"
+        block
+        style={{ backgroundColor: '#2db742', borderColor: '#2db742' }}
+        onClick={handleSubmit}
+      >
+        Add Todo
+      </Button>
+    </div>
   )
 }
 

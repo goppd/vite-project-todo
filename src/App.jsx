@@ -4,7 +4,13 @@ import TodoList from './components/todoList'
 
 function App() {
   return (
-    <div className="App">
+    <div
+      style={{
+        maxWidth: 480,
+        margin: '60px auto',
+        padding: '0 16px',
+      }}
+    >
       <TodoForm />
       <TodoList />
     </div>
